@@ -1,4 +1,4 @@
-package com.galvanize.startrekcaptaindatabase;
+package com.galvanize;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,6 +13,10 @@ public class JdbcOfficerDao {
 
 
     public long count() {
-        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM officers", Long.class);
+        try{
+            return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM officers", Long.class);
+        }catch(NullPointerException e){
+            return 0;
+        }
     }
 }

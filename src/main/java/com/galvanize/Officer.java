@@ -1,6 +1,4 @@
-package com.galvanize.startrekcaptaindatabase.entities;
-
-import com.galvanize.startrekcaptaindatabase.Rank;
+package com.galvanize;
 
 public class Officer {
     private long id;

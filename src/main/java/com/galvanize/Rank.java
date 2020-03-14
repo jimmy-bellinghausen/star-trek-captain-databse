@@ -1,4 +1,4 @@
-package com.galvanize.startrekcaptaindatabase;
+package com.galvanize;
 
 public enum Rank {
     ENSIGN, LIEUTENANT, COMMANDER, CAPTAIN, COMMODORE, ADMIRAL

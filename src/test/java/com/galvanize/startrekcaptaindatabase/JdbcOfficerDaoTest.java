@@ -25,6 +25,9 @@ class JdbcOfficerDaoTest {
     public void findAllOfficers(){assertEquals(5, jdbcOfficerDao.findAllOfficers().size());}
 
     @Test
+    public void officerExistsById(){assertTrue(jdbcOfficerDao.findById(1L).getId()==1L);}
+
+    @Test
     public void findOfficerById(){assertEquals(new Officer(1, Rank.CAPTAIN, "James", "Kirk"), jdbcOfficerDao.findById(1L));}
 
 

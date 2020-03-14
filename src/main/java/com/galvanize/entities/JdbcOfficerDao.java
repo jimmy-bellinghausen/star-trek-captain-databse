@@ -3,6 +3,10 @@ package com.galvanize.entities;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 @Repository
 public class JdbcOfficerDao {
     JdbcTemplate jdbcTemplate;
@@ -18,5 +22,12 @@ public class JdbcOfficerDao {
         }catch(NullPointerException e){
             return 0;
         }
+    }
+
+    public List<Officer> findAllOfficers() {
+        return jdbcTemplate.query("select * from officers", (rs, rowNum) -> new Officer(rs.getLong("id"),
+                Rank.valueOf(rs.getString("officer_rank")),
+                rs.getString("first_name"),
+                rs.getString("last_name")));
     }
 }

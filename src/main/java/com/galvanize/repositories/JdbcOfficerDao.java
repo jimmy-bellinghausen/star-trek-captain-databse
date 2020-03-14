@@ -1,5 +1,7 @@
-package com.galvanize.entities;
+package com.galvanize.repositories;
 
+import com.galvanize.entities.Officer;
+import com.galvanize.entities.Rank;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;

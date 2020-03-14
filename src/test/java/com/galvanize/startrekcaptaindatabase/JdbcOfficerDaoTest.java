@@ -1,6 +1,6 @@
 package com.galvanize.startrekcaptaindatabase;
 
-import com.galvanize.entities.JdbcOfficerDao;
+import com.galvanize.repositories.JdbcOfficerDao;
 import com.galvanize.entities.Officer;
 import com.galvanize.entities.Rank;
 import org.junit.jupiter.api.Test;

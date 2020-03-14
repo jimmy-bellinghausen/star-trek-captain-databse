@@ -1,5 +1,6 @@
 package com.galvanize.entities;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -32,9 +33,13 @@ public class JdbcOfficerDao {
     }
 
     public Officer findById(long id) {
-        return jdbcTemplate.queryForObject( "select * from officers where id = ?", (rs, rowNum) -> new Officer(rs.getLong("id"),
-                Rank.valueOf(rs.getString("officer_rank")),
-                rs.getString("first_name"),
-                rs.getString("last_name")), id);
+        try{
+            return jdbcTemplate.queryForObject( "select * from officers where id = ?", (rs, rowNum) -> new Officer(rs.getLong("id"),
+                    Rank.valueOf(rs.getString("officer_rank")),
+                    rs.getString("first_name"),
+                    rs.getString("last_name")), id);
+        }catch(EmptyResultDataAccessException e){
+            return null;
+        }
     }
 }

@@ -22,6 +22,11 @@ public class OfficerRestController {
         return jpaRepository.findAll();
     }
 
+    @GetMapping("/officer")
+    public Officer findOfficerByID(@RequestParam(required = false) long id){
+        return (Officer)jpaRepository.findById(id).get();
+    }
+
     @DeleteMapping("/officers")
     public void deleteById(long id){
         jpaRepository.deleteById(id);

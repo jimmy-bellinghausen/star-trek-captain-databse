@@ -41,6 +41,13 @@ class OfficerRestControllerTest {
     }
 
     @Test
+    public void findOfficerByID() throws Exception{
+        mockMvc.perform(get("/officer?id=1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.first").value("James"));
+    }
+
+    @Test
     public void deleteById() throws Exception{
         mockMvc.perform(delete("/officers?id=1"))
                 .andExpect(status().isOk())

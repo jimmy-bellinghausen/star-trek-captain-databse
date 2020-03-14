@@ -34,8 +34,19 @@ class JdbcOfficerDaoTest {
     @Test
     public void createNewOfficer(){
         Officer testOfficer = new Officer(Rank.COMMODORE, "Test", "Captain");
-        Officer expectedOfficer = new Officer(6L, Rank.COMMODORE, "Test", "Captain");
+        Officer expectedOfficer = new Officer(jdbcOfficerDao.count()+1L, Rank.COMMODORE, "Test", "Captain");
 
         assertEquals(expectedOfficer, jdbcOfficerDao.save(testOfficer));
+    }
+
+    @Test
+    public void deleteNewOfficer(){
+        Officer testAndExpectedOfficer = new Officer(Rank.COMMODORE, "Test", "Captain");
+        long expectedId = jdbcOfficerDao.count()+1L;
+        Officer intermediateOfficer = new Officer(expectedId, Rank.COMMODORE, "Test", "Captain");
+
+        assertEquals(intermediateOfficer, jdbcOfficerDao.save(testAndExpectedOfficer));
+
+        assertEquals(testAndExpectedOfficer,jdbcOfficerDao.deleteByID(expectedId));
     }
 }

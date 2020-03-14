@@ -1,4 +1,4 @@
-package com.galvanize;
+package com.galvanize.entities;
 
 public class Officer {
     private long id;

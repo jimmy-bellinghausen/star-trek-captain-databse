@@ -47,6 +47,11 @@ class JdbcOfficerDaoTest {
 
         assertEquals(intermediateOfficer, jdbcOfficerDao.save(testAndExpectedOfficer));
 
-        assertEquals(testAndExpectedOfficer,jdbcOfficerDao.deleteByID(expectedId));
+        assertTrue(jdbcOfficerDao.deleteByID(expectedId));
+    }
+
+    @Test
+    public void failToDeleteNewOfficer(){
+        assertFalse(jdbcOfficerDao.deleteByID(jdbcOfficerDao.count()+1));
     }
 }

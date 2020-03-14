@@ -9,8 +9,8 @@ import java.util.*;
 
 @Repository
 public class JdbcOfficerDao {
-    JdbcTemplate jdbcTemplate;
-    SimpleJdbcInsert insertOfficer;
+    private JdbcTemplate jdbcTemplate;
+    private SimpleJdbcInsert insertOfficer;
 
     public JdbcOfficerDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -57,5 +57,9 @@ public class JdbcOfficerDao {
         testOfficer.setId(newId);
 
         return testOfficer;
+    }
+
+    public boolean deleteByID(long expectedId) {
+        return jdbcTemplate.update("DELETE FROM officers WHERE id = ?", expectedId)==1;
     }
 }

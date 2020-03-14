@@ -12,4 +12,7 @@ public class JdbcOfficerDao {
     }
 
 
+    public long count() {
+        return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM officers", Long.class);
+    }
 }

@@ -54,5 +54,15 @@ public class Officer {
     public void setLast(String last) {
         this.last = last;
     }
+
+    @Override
+    public String toString() {
+        return "Officer{" +
+                "id=" + id +
+                ", rank=" + rank +
+                ", first='" + first + '\'' +
+                ", last='" + last + '\'' +
+                '}';
+    }
 }
 

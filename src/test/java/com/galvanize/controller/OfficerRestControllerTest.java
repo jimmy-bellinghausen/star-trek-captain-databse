@@ -6,15 +6,20 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import javax.transaction.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 class OfficerRestControllerTest {
     @Autowired
     MockMvc mockMvc;
@@ -22,8 +27,23 @@ class OfficerRestControllerTest {
     @Test
     public void postOfficer() throws Exception {
         String input = "{\"rank\":\"COMMODORE\", \"first\":\"Test\", \"last\":\"Captain\"}";
-        mockMvc.perform(post("/officer").content(input).contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(post("/officers").content(input).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.first").value("Test"));
+    }
+
+    @Test
+    public void findAllOfficers() throws Exception{
+        mockMvc.perform(get("/officers"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(5))
+                .andDo(print());
+    }
+
+    @Test
+    public void deleteById() throws Exception{
+        mockMvc.perform(delete("/officers?id=1"))
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 }

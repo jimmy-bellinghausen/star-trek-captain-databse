@@ -30,4 +30,11 @@ public class JdbcOfficerDao {
                 rs.getString("first_name"),
                 rs.getString("last_name")));
     }
+
+    public Officer findById(long id) {
+        return jdbcTemplate.queryForObject( "select * from officers where id = ?", (rs, rowNum) -> new Officer(rs.getLong("id"),
+                Rank.valueOf(rs.getString("officer_rank")),
+                rs.getString("first_name"),
+                rs.getString("last_name")), id);
+    }
 }

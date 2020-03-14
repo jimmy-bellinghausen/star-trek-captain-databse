@@ -2,6 +2,7 @@ package com.galvanize.startrekcaptaindatabase;
 
 import com.galvanize.entities.JdbcOfficerDao;
 import com.galvanize.entities.Officer;
+import com.galvanize.entities.Rank;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +23,10 @@ class JdbcOfficerDaoTest {
 
     @Test
     public void findAllOfficers(){assertEquals(5, jdbcOfficerDao.findAllOfficers().size());}
+
+    @Test
+    public void findOfficerById(){assertEquals(new Officer(1, Rank.CAPTAIN, "James", "Kirk"), jdbcOfficerDao.findById(1L));}
+
 
 
 }

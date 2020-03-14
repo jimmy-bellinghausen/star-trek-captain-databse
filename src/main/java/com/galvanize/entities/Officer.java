@@ -1,5 +1,7 @@
 package com.galvanize.entities;
 
+import java.util.Objects;
+
 public class Officer {
     private long id;
     private Rank rank;
@@ -61,6 +63,22 @@ public class Officer {
                 ", first='" + first + '\'' +
                 ", last='" + last + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Officer officer = (Officer) o;
+        return getId() == officer.getId() &&
+                getRank() == officer.getRank() &&
+                getFirst().equals(officer.getFirst()) &&
+                getLast().equals(officer.getLast());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getRank(), getFirst(), getLast());
     }
 }
 

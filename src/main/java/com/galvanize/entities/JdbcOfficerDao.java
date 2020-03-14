@@ -36,14 +36,14 @@ public class JdbcOfficerDao {
     }
 
     public Officer findById(long id) {
-        try{
+        if(exists(id)){
             return jdbcTemplate.queryForObject( "select * from officers where id = ?", (rs, rowNum) -> new Officer(rs.getLong("id"),
                     Rank.valueOf(rs.getString("officer_rank")),
                     rs.getString("first_name"),
                     rs.getString("last_name")), id);
-        }catch(EmptyResultDataAccessException e){
-            return null;
         }
+        return null;
+
     }
 
     public Officer save(Officer testOfficer) {
@@ -61,5 +61,13 @@ public class JdbcOfficerDao {
 
     public boolean deleteByID(long expectedId) {
         return jdbcTemplate.update("DELETE FROM officers WHERE id = ?", expectedId)==1;
+    }
+
+    public boolean exists(long id) {
+        try{
+            return jdbcTemplate.queryForObject("Select 1 from officers where id=?", Boolean.class, id);
+        }catch (EmptyResultDataAccessException e){
+            return false;
+        }
     }
 }

@@ -23,10 +23,10 @@ class JdbcOfficerDaoTest {
     public void findAllOfficers(){assertEquals(5, jdbcOfficerDao.findAllOfficers().size());}
 
     @Test
-    public void officerExistsById(){assertNotNull(jdbcOfficerDao.findById(1L));}
+    public void officerExistsById(){assertTrue(jdbcOfficerDao.exists(1L));}
 
     @Test
-    public void officerDoesNotExistById(){assertNull(jdbcOfficerDao.findById(10L));}
+    public void officerDoesNotExistById(){assertFalse(jdbcOfficerDao.exists(10L));}
 
     @Test
     public void findOfficerById(){assertEquals(new Officer(1, Rank.CAPTAIN, "James", "Kirk"), jdbcOfficerDao.findById(1L));}

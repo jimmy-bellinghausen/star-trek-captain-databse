@@ -23,6 +23,36 @@ public class Officer {
         this.last = last;
     }
 
+    public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
+
+    public void setRank(Rank rank) {
+        this.rank = rank;
+    }
+
+    public String getFirst() {
+        return first;
+    }
+
+    public void setFirst(String first) {
+        this.first = first;
+    }
+
+    public String getLast() {
+        return last;
+    }
+
+    public void setLast(String last) {
+        this.last = last;
+    }
 }
 

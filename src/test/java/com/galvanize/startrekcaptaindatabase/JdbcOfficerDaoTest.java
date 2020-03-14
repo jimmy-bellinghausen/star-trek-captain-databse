@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -33,5 +31,11 @@ class JdbcOfficerDaoTest {
     @Test
     public void findOfficerById(){assertEquals(new Officer(1, Rank.CAPTAIN, "James", "Kirk"), jdbcOfficerDao.findById(1L));}
 
+    @Test
+    public void createNewOfficer(){
+        Officer testOfficer = new Officer(Rank.COMMODORE, "Test", "Captain");
+        Officer expectedOfficer = new Officer(6L, Rank.COMMODORE, "Test", "Captain");
 
+        assertEquals(expectedOfficer, jdbcOfficerDao.save(testOfficer));
+    }
 }

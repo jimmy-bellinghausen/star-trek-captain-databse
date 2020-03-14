@@ -2,18 +2,21 @@ package com.galvanize.entities;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class JdbcOfficerDao {
     JdbcTemplate jdbcTemplate;
+    SimpleJdbcInsert insertOfficer;
 
     public JdbcOfficerDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+        insertOfficer = new SimpleJdbcInsert(jdbcTemplate)
+                .withTableName("officers")
+                .usingGeneratedKeyColumns("id");
     }
 
 
@@ -41,5 +44,18 @@ public class JdbcOfficerDao {
         }catch(EmptyResultDataAccessException e){
             return null;
         }
+    }
+
+    public Officer save(Officer testOfficer) {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("officer_rank", testOfficer.getRank());
+        parameters.put("first_name", testOfficer.getFirst());
+        parameters.put("last_name", testOfficer.getLast());
+
+
+        long newId = insertOfficer.executeAndReturnKey(parameters).longValue();
+        testOfficer.setId(newId);
+
+        return testOfficer;
     }
 }

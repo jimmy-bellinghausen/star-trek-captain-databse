@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.constraints.Null;
 import java.util.*;
 
 @Repository
@@ -71,5 +72,10 @@ public class JdbcOfficerDao {
         }catch (EmptyResultDataAccessException e){
             return false;
         }
+    }
+
+    public Officer changeRank(long id, Rank rank){
+        jdbcTemplate.update("UPDATE officers SET officer_rank=? WHERE id=?",rank.toString(),id);
+        return findById(id);
     }
 }

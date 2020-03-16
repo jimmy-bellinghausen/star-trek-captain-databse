@@ -48,9 +48,16 @@ class OfficerRestControllerTest {
     }
 
     @Test
-    public void deleteById() throws Exception{
-        mockMvc.perform(delete("/officers?id=1"))
+    public void changeOfficerRank() throws Exception{
+        mockMvc.perform(get("/changerank?id=1&rank=COMMODORE"))
+                .andDo(print())
                 .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(jsonPath("$.rank").value("COMMODORE"));
+    }
+
+    @Test
+    public void deleteById() throws Exception{
+        mockMvc.perform(delete("/officers?id=1&rank=COMMODORE"))
+                .andExpect(status().isOk());
     }
 }

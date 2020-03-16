@@ -1,8 +1,12 @@
 package com.galvanize.controller;
 
 import com.galvanize.entities.Officer;
+import com.galvanize.entities.Rank;
+import com.galvanize.repositories.JdbcOfficerDao;
+import com.galvanize.repositories.JpaOfficerDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,7 +14,8 @@ import java.util.List;
 @RestController
 public class OfficerRestController {
     @Autowired
-    JpaRepository jpaRepository;
+    JpaOfficerDao jpaRepository;
+    JdbcOfficerDao jdbcRepository;
 
     @PostMapping("/officers")
     public Officer postOfficer(@RequestBody Officer officer){
@@ -23,8 +28,16 @@ public class OfficerRestController {
     }
 
     @GetMapping("/officer")
-    public Officer findOfficerByID(@RequestParam(required = false) long id){
-        return (Officer)jpaRepository.findById(id).get();
+    public Officer findOfficerByID(@RequestParam long id){
+        return jpaRepository.findById(id);
+    }
+
+    @GetMapping("/changerank")
+    public Officer promote(@RequestParam long id, @RequestParam Rank rank){
+        Officer officerToBeRankChanged = findOfficerByID(id);
+        officerToBeRankChanged.setRank(rank);
+        Officer changedOfficer = postOfficer(officerToBeRankChanged);
+        return changedOfficer;
     }
 
     @DeleteMapping("/officers")

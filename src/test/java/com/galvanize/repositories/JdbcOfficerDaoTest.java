@@ -1,4 +1,4 @@
-package com.galvanize.startrekcaptaindatabase;
+package com.galvanize.repositories;
 
 import com.galvanize.repositories.JdbcOfficerDao;
 import com.galvanize.entities.Officer;
@@ -53,5 +53,10 @@ class JdbcOfficerDaoTest {
     @Test
     public void failToDeleteNewOfficer(){
         assertFalse(jdbcOfficerDao.deleteByID(jdbcOfficerDao.count()+1));
+    }
+
+    @Test
+    public void changeRanks(){
+        assertEquals(Rank.valueOf("COMMODORE"), jdbcOfficerDao.changeRank(1L, Rank.valueOf("COMMODORE")).getRank());
     }
 }

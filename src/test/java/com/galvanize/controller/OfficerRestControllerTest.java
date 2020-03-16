@@ -52,7 +52,7 @@ class OfficerRestControllerTest {
         mockMvc.perform(get("/changerank?id=1&rank=COMMODORE"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.rank").value("COMMODORE"));
+                .andExpect(jsonPath("$").value(true));
     }
 
     @Test

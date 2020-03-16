@@ -57,6 +57,6 @@ class JdbcOfficerDaoTest {
 
     @Test
     public void changeRanks(){
-        assertEquals(Rank.valueOf("COMMODORE"), jdbcOfficerDao.changeRank(1L, Rank.valueOf("COMMODORE")).getRank());
+        assertEquals(true, jdbcOfficerDao.changeRank(1L, Rank.valueOf("COMMODORE")));
     }
 }

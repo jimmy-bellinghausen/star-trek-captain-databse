@@ -74,8 +74,7 @@ public class JdbcOfficerDao {
         }
     }
 
-    public Officer changeRank(long id, Rank rank){
-        jdbcTemplate.update("UPDATE officers SET officer_rank=? WHERE id=?",rank.toString(),id);
-        return findById(id);
+    public boolean changeRank(long id, Rank rank){
+        return 1==jdbcTemplate.update("UPDATE officers SET officer_rank=? WHERE id=?",rank.toString(),id);
     }
 }

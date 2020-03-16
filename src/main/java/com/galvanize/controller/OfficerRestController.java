@@ -34,7 +34,7 @@ public class OfficerRestController {
     }
 
     @GetMapping("/changerank")
-    public Officer promote(@RequestParam long id, @RequestParam Rank rank){
+    public boolean promote(@RequestParam long id, @RequestParam Rank rank){
         return jdbcRepository.changeRank(id,rank);
     }
 

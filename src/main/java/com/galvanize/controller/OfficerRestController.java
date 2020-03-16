@@ -15,6 +15,7 @@ import java.util.List;
 public class OfficerRestController {
     @Autowired
     JpaOfficerDao jpaRepository;
+    @Autowired
     JdbcOfficerDao jdbcRepository;
 
     @PostMapping("/officers")
@@ -34,10 +35,7 @@ public class OfficerRestController {
 
     @GetMapping("/changerank")
     public Officer promote(@RequestParam long id, @RequestParam Rank rank){
-        Officer officerToBeRankChanged = findOfficerByID(id);
-        officerToBeRankChanged.setRank(rank);
-        Officer changedOfficer = postOfficer(officerToBeRankChanged);
-        return changedOfficer;
+        return jdbcRepository.changeRank(id,rank);
     }
 
     @DeleteMapping("/officers")

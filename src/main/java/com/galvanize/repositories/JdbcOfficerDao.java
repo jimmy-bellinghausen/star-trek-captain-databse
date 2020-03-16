@@ -77,4 +77,8 @@ public class JdbcOfficerDao {
     public boolean changeRank(long id, Rank rank){
         return 1==jdbcTemplate.update("UPDATE officers SET officer_rank=? WHERE id=?",rank.toString(),id);
     }
+
+    public boolean changeFirstName(long id, String newFirstName) {
+        return 1==jdbcTemplate.update("UPDATE officers SET first_name=? WHERE id=?", newFirstName,id);
+    }
 }
